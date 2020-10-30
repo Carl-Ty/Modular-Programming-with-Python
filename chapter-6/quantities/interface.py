@@ -2,8 +2,9 @@
 
     This module defines the public interface for the `quantities` package.
 """
-from .units    import UNITS, localize, find_unit
+from .units import UNITS, localize, find_unit
 from .quantity import Quantity
+
 
 #############################################################################
 
@@ -24,7 +25,7 @@ def new(value, units):
     """ Create and return a new Quantity object.
     """
     global _locale
-    kind,unit = find_unit(units, _locale)
+    kind, unit = find_unit(units, _locale)
     if kind == None:
         raise ValueError("Unknown unit: {}".format(units))
 
@@ -39,10 +40,10 @@ def parse(s):
     """
     global _locale
 
-    sValue,sUnits = s.split(" ", maxsplit=1)
+    sValue, sUnits = s.split(" ", maxsplit=1)
     value = float(sValue)
 
-    kind,unit = find_unit(sUnits, _locale)
+    kind, unit = find_unit(sUnits, _locale)
     if kind == None:
         raise ValueError("Unknown unit: {}".format(sUnits))
 
@@ -53,7 +54,7 @@ def kind(q):
     """ Return the kind of unit represented by the given quantity.
     """
     global _locale
-    kind,unit = find_unit(q.units, _locale)
+    kind, unit = find_unit(q.units, _locale)
     return kind
 
 
@@ -78,8 +79,8 @@ def convert(q, units):
     """
     global _locale
 
-    src_kind,src_units = find_unit(q.units, _locale)
-    dst_kind,dst_units = find_unit(units, _locale)
+    src_kind, src_units = find_unit(q.units, _locale)
+    dst_kind, dst_units = find_unit(units, _locale)
 
     if src_kind == None:
         raise ValueError("Unknown units: {}".format(q.units))
@@ -88,8 +89,8 @@ def convert(q, units):
 
     if src_kind != dst_kind:
         raise ValueError("It's impossible to convert {} into {}!".format(
-                            localize(src_units['plural'], _locale),
-                            localize(dst_units['plural'], _locale)))
+            localize(src_units['plural'], _locale),
+            localize(dst_units['plural'], _locale)))
 
     num_units = q.value * src_units['num_units'] / dst_units['num_units']
     return Quantity(num_units, localize(dst_units['name'], _locale))
@@ -110,4 +111,3 @@ def supported_units(kind):
     for unit in UNITS.get(kind, []):
         units.append(localize(unit['name'], _locale))
     return units
-

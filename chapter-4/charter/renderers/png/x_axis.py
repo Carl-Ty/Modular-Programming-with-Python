@@ -9,7 +9,7 @@ from ...constants import *
 #############################################################################
 
 def draw(chart, drawer):
-    font = ImageFont.truetype("Helvetica", 12)
+    font = ImageFont.truetype("arial.ttf", 12)
     label_height = font.getsize("Test")[1]
 
     avail_width  = CHART_WIDTH - Y_AXIS_WIDTH - MARGIN

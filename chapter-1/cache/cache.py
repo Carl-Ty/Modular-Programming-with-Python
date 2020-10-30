@@ -52,3 +52,8 @@ def _remove_oldest_entry():
     if oldest != None:
         del _cache[oldest]
 
+
+if __name__ == '__main__':
+    """No main"""
+else:
+    init()

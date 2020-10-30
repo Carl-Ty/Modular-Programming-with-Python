@@ -44,6 +44,7 @@
 
 UNITS = {}
 
+
 #############################################################################
 
 # Helper functions:
@@ -53,8 +54,8 @@ def by_locale(value_for_us, value_for_international):
 
         This is used to create locale-specific values within our UNITS.
     """
-    return {"us"            : value_for_us,
-            "international" : value_for_international}
+    return {"us": value_for_us,
+            "international": value_for_international}
 
 
 def unit(*args):
@@ -68,11 +69,11 @@ def unit(*args):
     """
     if len(args) == 3:
         abbreviation = args[0]
-        name         = args[1]
+        name = args[1]
 
         if isinstance(name, dict):
             plural = {}
-            for key,value in name.items():
+            for key, value in name.items():
                 plural[key] = value + "s"
         else:
             plural = name + "s"
@@ -80,16 +81,16 @@ def unit(*args):
         num_units = args[2]
     elif len(args) == 4:
         abbreviation = args[0]
-        name         = args[1]
-        plural       = args[2]
-        num_units    = args[3]
+        name = args[1]
+        plural = args[2]
+        num_units = args[3]
     else:
         raise RuntimeError("Bad arguments to unit(): {}".format(args))
 
-    return {'abbreviation' : abbreviation,
-            'name'         : name,
-            'plural'       : plural,
-            'num_units'    : num_units}
+    return {'abbreviation': abbreviation,
+            'name': name,
+            'plural': plural,
+            'num_units': num_units}
 
 
 def units(kind, *units_to_add):
@@ -103,12 +104,13 @@ def units(kind, *units_to_add):
     for unit in units_to_add:
         UNITS[kind].append(unit)
 
+
 #############################################################################
 
 # Units of weight:
 
 units("weight",
-      unit("g",  "gram",     1),
+      unit("g", "gram", 1),
       unit("kg", "kilogram", 1000),
       unit("oz", "ounce", 28.349523125),
       unit("lb", "pound", 453.59237))
@@ -118,8 +120,8 @@ units("weight",
 units("length",
       unit("mm", by_locale("millimeter", "millimetre"), 0.1),
       unit("cm", by_locale("centimeter", "centimetre"), 1),
-      unit("m",  by_locale("meter",      "metre"),      100),
-      unit("km", by_locale("kilometer",  "kilometre"),  100000),
+      unit("m", by_locale("meter", "metre"), 100),
+      unit("km", by_locale("kilometer", "kilometre"), 100000),
       unit("in", "inch", "inches", 2.54),
       unit("ft", "foot", "feet", 30.48),
       unit("yd", "yard", 91.44),
@@ -130,36 +132,37 @@ units("length",
 units("area",
       unit("sq cm", by_locale("square centimeter",
                               "square centimetre"), 0.0001),
-      unit("sq m",  by_locale("square meter",
-                              "square metre"),      1),
-      unit("ha",    "hectare",                      10000),
+      unit("sq m", by_locale("square meter",
+                             "square metre"), 1),
+      unit("ha", "hectare", 10000),
       unit("sq km", by_locale("square kilometer",
-                              "square kilometre"),  1000000),
+                              "square kilometre"), 1000000),
       unit("sq in", "square inch", "square inches", 0.00064516),
-      unit("sq ft", "square foot", "square feet",   0.09290304),
-      unit("sq mi", "square mile",                  2589988.110336),
-      unit("a",     "acre",                         4046.8564224))
+      unit("sq ft", "square foot", "square feet", 0.09290304),
+      unit("sq mi", "square mile", 2589988.110336),
+      unit("a", "acre", 4046.8564224))
 
 # Units of volume:
 
 units("volume",
-      unit("cc",   by_locale("cubic centimeter",
-                             "cubic centimetre"),  1),
-      unit("l",    by_locale("liter",
-                             "litre"),             1000),
-      unit("ml",   by_locale("milliliter",
-                             "millilitre"),        1),
-      unit("c",    "cup", by_locale(236.5882365, 250)),
-      unit("dsp",  "dessert spoon", by_locale(9.857843187066, 11.8387809397)),
-      unit("tsp",  "teaspoon", by_locale(4.92892159375, 5.0)),
+      unit("cc", by_locale("cubic centimeter",
+                           "cubic centimetre"), 1),
+      unit("l", by_locale("liter",
+                          "litre"), 1000),
+      unit("ml", by_locale("milliliter",
+                           "millilitre"), 1),
+      unit("c", "cup", by_locale(236.5882365, 250)),
+      unit("dsp", "dessert spoon", by_locale(9.857843187066, 11.8387809397)),
+      unit("tsp", "teaspoon", by_locale(4.92892159375, 5.0)),
       unit("tbsp", "tablespoon", by_locale(14.78676478125, 15.0)),
-      unit("cu ft", "cubic foot", "cubic feet",   28316.846592),
+      unit("cu ft", "cubic foot", "cubic feet", 28316.846592),
       unit("cu in", "cubic inch", "cubic inches", 16.387064),
-      unit("cu yd", "cubic yard",                 764554.857984),
+      unit("cu yd", "cubic yard", 764554.857984),
       unit("fl oz", "fluid ounce", by_locale(29.5735295625, 28.4130625)),
-      unit("gal",   "gallon",      by_locale(3785.411784, 4546.09)),
-      unit("pt",    "pint",        by_locale(473.176473, 568.26125)),
-      unit("qt",    "quart",       by_locale(946.352946, 1136.5225)))
+      unit("gal", "gallon", by_locale(3785.411784, 4546.09)),
+      unit("pt", "pint", by_locale(473.176473, 568.26125)),
+      unit("qt", "quart", by_locale(946.352946, 1136.5225)))
+
 
 #############################################################################
 
@@ -196,10 +199,9 @@ def find_unit(s, locale):
     for kind in UNITS.keys():
         for unit in UNITS[kind]:
             if (s == localize(unit['abbreviation'], locale).lower() or
-                s == localize(unit['name'], locale).lower() or
-                s == localize(unit['plural'], locale).lower()):
+                    s == localize(unit['name'], locale).lower() or
+                    s == localize(unit['plural'], locale).lower()):
                 # Success!
                 return (kind, unit)
 
-    return (None, None) # Not found.
-
+    return (None, None)  # Not found.

@@ -5,6 +5,7 @@
 
 import datastorage
 
+
 #############################################################################
 
 def generate_inventory_report():
@@ -14,20 +15,20 @@ def generate_inventory_report():
     """
     # Get the list of known products and locations.
 
-    product_names = {} # Maps product code to product name.
-    for product_code,name,desired_number in datastorage.products():
+    product_names = {}  # Maps product code to product name.
+    for product_code, name, desired_number in datastorage.products():
         product_names[product_code] = name
 
-    location_names = {} # Maps location code to location name.
-    for location_code,name in datastorage.locations():
+    location_names = {}  # Maps location code to location name.
+    for location_code, name in datastorage.locations():
         location_names[location_code] = name
 
     # Calculate the report's contents.
 
-    grouped_items = {} # Maps product code to dictionary mapping location code
-                       # to number of items with that product at that location.
+    grouped_items = {}  # Maps product code to dictionary mapping location code
+    # to number of items with that product at that location.
 
-    for product_code,location_code in datastorage.items():
+    for product_code, location_code in datastorage.items():
         if product_code not in grouped_items:
             grouped_items[product_code] = {}
 
@@ -43,20 +44,21 @@ def generate_inventory_report():
     report.append("")
 
     for product_code in sorted(grouped_items.keys()):
-        product_name  = product_names[product_code]
+        product_name = product_names[product_code]
         report.append("Inventory for product: {} - {}".format(product_code,
                                                               product_name))
         report.append("")
 
         for location_code in sorted(grouped_items[product_code].keys()):
             location_name = location_names[location_code]
-            num_items     = grouped_items[product_code][location_code]
+            num_items = grouped_items[product_code][location_code]
             report.append("  {} at {} - {}".format(num_items,
                                                    location_code,
                                                    location_name))
         report.append("")
 
     return report
+
 
 #############################################################################
 
@@ -67,18 +69,18 @@ def generate_reorder_report():
     """
     # Get the list of known products and locations.
 
-    product_names   = {} # Maps product code to product name.
-    desired_numbers = {} # maps product code to desired number of items.
+    product_names = {}  # Maps product code to product name.
+    desired_numbers = {}  # maps product code to desired number of items.
 
-    for product_code,name,desired_number in datastorage.products():
+    for product_code, name, desired_number in datastorage.products():
         product_names[product_code] = name
         desired_numbers[product_code] = desired_number
 
     # Calculate our current inventory levels.
 
-    num_in_inventory = {} # Maps product code to number of items in inventory.
+    num_in_inventory = {}  # Maps product code to number of items in inventory.
 
-    for product_code,location_code in datastorage.items():
+    for product_code, location_code in datastorage.items():
         if product_code in num_in_inventory:
             num_in_inventory[product_code] += 1
         else:
@@ -102,4 +104,3 @@ def generate_reorder_report():
     report.append("")
 
     return report
-

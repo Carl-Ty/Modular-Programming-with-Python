@@ -45,9 +45,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-.idea/.gitignore
-.idea/Modular-Programming-with-Python.iml
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
+/venv/
+/chapter-4/chart.pdf
+/Chapter-4A/chart.png
+/Chapter-4A/chart_line.png
+/Chapter-4A/chart_bar.png
+/chapter-4/chart.png
+/chapter-4/chart_bar.pdf
+/chapter-4/chart_bar.png
+/chapter-4/chart_line.pdf
+/chapter-4/chart_line.png
+/Chapter-4A/chart_bar.pdf
+/Chapter-4A/chart_line.pdf
+/.idea/workspace.xml

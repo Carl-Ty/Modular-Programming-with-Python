@@ -52,7 +52,7 @@ if __name__ == "__main__":
     # Testing code.
 
     if is_happy_hour():
-        print "It's happy hour!"
+        print ("It's happy hour!")
     else:
-        print "It's not happy hour."
+        print ("It's not happy hour.")
 

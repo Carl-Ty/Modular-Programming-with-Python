@@ -4,6 +4,7 @@
 
 import datastorage
 
+
 #############################################################################
 
 def prompt_for_action():
@@ -28,13 +29,19 @@ def prompt_for_action():
         print("  Q = quit.")
         print()
         action = input("> ").strip().upper()
-        if   action == "A": return "ADD"
-        elif action == "R": return "REMOVE"
-        elif action == "C": return "INVENTORY_REPORT"
-        elif action == "O": return "REORDER_REPORT"
-        elif action == "Q": return "QUIT"
+        if action == "A":
+            return "ADD"
+        elif action == "R":
+            return "REMOVE"
+        elif action == "C":
+            return "INVENTORY_REPORT"
+        elif action == "O":
+            return "REORDER_REPORT"
+        elif action == "Q":
+            return "QUIT"
         else:
             print("Unknown action!")
+
 
 #############################################################################
 
@@ -49,7 +56,7 @@ def prompt_for_product():
         print("Select a product:")
         print()
         n = 1
-        for code,description,desired_number in datastorage.products():
+        for code, description, desired_number in datastorage.products():
             print("  {}. {} - {}".format(n, code, description))
             n = n + 1
 
@@ -65,8 +72,9 @@ def prompt_for_product():
             print("Invalid option: {}".format(s))
             continue
 
-        product_code = datastorage.products()[n-1][0]
+        product_code = datastorage.products()[n - 1][0]
         return product_code
+
 
 #############################################################################
 
@@ -81,7 +89,7 @@ def prompt_for_location():
         print("Select a location:")
         print()
         n = 1
-        for code,description in datastorage.locations():
+        for code, description in datastorage.locations():
             print("  {}. {} - {}".format(n, code, description))
             n = n + 1
 
@@ -97,8 +105,9 @@ def prompt_for_location():
             print("Invalid option: {}".format(s))
             continue
 
-        location_code = datastorage.locations()[n-1][0]
+        location_code = datastorage.locations()[n - 1][0]
         return location_code
+
 
 #############################################################################
 
@@ -108,6 +117,7 @@ def show_error(err_msg):
     print()
     print(err_msg)
     print()
+
 
 #############################################################################
 
@@ -120,4 +130,3 @@ def show_report(report):
     for line in report:
         print(line)
     print()
-
